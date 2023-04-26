@@ -30,6 +30,12 @@ class BinarySearchTree:
       else:
           return self.root.largest()
 
+    def depth(self):
+      if self.root is None:
+        return 0
+      else:
+        return self.root.depth()
+
 
 class Node:
     def __init__(self, val, left=None, right=None):
@@ -107,6 +113,18 @@ class Node:
         
       return leftList + [self.val] + rightList
 
+    def depth(self):
+      if self.val is None:
+        return 0
+      elif self.left is None and self.right is not None:
+        return 1 + self.right.depth()
+      elif self.right is None and self.left is not None:
+        return 1 + self.left.depth()
+      elif self.right is None and self.left is None:
+        return 1
+      else:
+        return 1 + max(self.right.depth(), self.left.depth())
+
 
 def main():
   s = input("Enter a list of numbers, seperated by spaces: ")
@@ -119,6 +137,7 @@ def main():
   print(tree.toList())
   print(tree.contains(7))
   print(tree.largest())
+  print(tree.depth())
   
 
 if __name__ == "__main__":
